@@ -1,0 +1,14 @@
+//
+//  Shared.xcconfig
+//  Manifests
+//
+//  Created by  p2noo on 6/26/24.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+OTHER_SWIFT_FLAGS[config=DEV][sdk=*] = $(inherited) -DDEV
+OTHER_SWIFT_FLAGS[config=PROD][sdk=*] = $(inherited) -DPROD
+
+// App Settings
+PRODUCT_NAME = $(TARGET_NAME)

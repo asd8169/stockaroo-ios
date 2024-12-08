@@ -1,0 +1,58 @@
+//
+//  Project.swift
+//
+//  Created by {{ author }} on {{ currentDate }}
+//
+
+import ProjectDescription
+import ProjectDescriptionHelpers
+import DependencyPlugin
+
+let project = Project.makeModule(
+    name: ModulePaths.{{ layer }}Module.{{ name }}.rawValue,
+    targets: [
+        .implements(
+            modulePath: .{{ layer|lowercase }}(.{{ name }}),
+            dependencies: [
+                .{{ layer|lowercase }}(interface: .{{ name }})
+            ]
+        )
+        {% if hasInterface == "true" %}
+        .interface(
+            modulePath: .{{ layer|lowercase }}(.{{ name }}),
+            dependencies: [
+            
+            ]
+        ),
+        {% endif %}
+        {% if hasTesting == "true" %}
+        ,
+        .testing(
+            modulePath: .{{ layer|lowercase }}(.{{ name }}),
+            dependencies: [
+                .{{ layer|lowercase }}(interface: .{{ name }})
+            ]
+        )
+        {% endif %}
+        {% if hasTests == "true" %}
+        ,
+        .tests(
+            modulePath: .{{ layer|lowercase }}(.{{ name }}),
+            dependencies: [
+                .{{ layer|lowercase }}(implementation: .{{ name }}),
+                .{{ layer|lowercase }}(testing: .{{ name }})
+            ]
+        )
+        {% endif %}
+        {% if hasExample == "true" %}
+        ,
+        .example(
+            modulePath: .{{ layer|lowercase }}(.{{ name }}),
+            dependencies: [
+                .{{ layer|lowercase }}(implementation: .{{ name }}),
+                .{{ layer|lowercase }}(testing: .{{ name }})
+            ]
+        )
+        {% endif %}
+    ]
+)
